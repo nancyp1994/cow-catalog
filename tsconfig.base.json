@@ -14,7 +14,12 @@
     "skipLibCheck": true,
     "skipDefaultLibCheck": true,
     "baseUrl": ".",
-    "paths": {}
+    "paths": {
+      "@cow/cow-create": ["libs/cow/cow-create/src/index.ts"],
+      "@cow/cow-detail": ["libs/cow/cow-detail/src/index.ts"],
+      "@cow/cow-list": ["libs/cow/cow-list/src/index.ts"],
+      "@cow/data-access": ["libs/cow/data-access/src/index.ts"]
+    }
   },
   "exclude": ["node_modules", "tmp"]
 }

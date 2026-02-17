@@ -1,0 +1,12 @@
+<p-dialog
+  header="Create New Cow"
+  [(visible)]="display"
+  [modal]="true"
+  [closable]="false"
+  [style]="{ width: '400px' }"
+>
+  <formly-form [form]="form" [fields]="fields" [model]="model"></formly-form>
+
+  <button pButton label="Cancel" (click)="onCancel()"></button>
+  <button pButton label="Save" (click)="onSaveCow()"></button>
+</p-dialog>

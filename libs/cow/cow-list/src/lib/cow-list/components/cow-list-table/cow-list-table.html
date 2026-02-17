@@ -1,0 +1,29 @@
+<div class="card">
+  <p-table [value]="cows">
+    <ng-template #header>
+      <tr>
+        <th>Ear Tag Number</th>
+        <th>Sex</th>
+        <th>Pen area</th>
+        <th>Status</th>
+        <th>Last Recorded Event</th>
+      </tr>
+    </ng-template>
+    <ng-template #body let-cow>
+      <tr>
+        <td>{{ cow.id }}</td>
+        <td>{{ cow.sex }}</td>
+        <td>{{ cow.pen }}</td>
+        <td>{{ cow.status }}</td>
+        <td>{{ cow.lastUpdated | date}}</td>
+      </tr>
+    </ng-template>
+  </p-table>
+</div>
+
+<button pButton label="Add new Cow" (click)="openModal()"></button>
+
+<cow-create-modal
+  (displayChange)="modalStatusChanged($event)"
+  [display]="showModal"
+></cow-create-modal>
