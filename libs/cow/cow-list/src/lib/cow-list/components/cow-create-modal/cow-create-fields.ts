@@ -3,7 +3,7 @@ import { FormlyFieldConfig } from '@ngx-formly/core';
 export const CowCreateFields: FormlyFieldConfig[] = [
   {
     key: 'id',
-    type: 'input',
+    type: 'number',
     props: {
       label: ' Tag ID',
       required: true,
