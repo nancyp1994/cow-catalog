@@ -1,9 +1,18 @@
-import { Component, EventEmitter, inject, Input, Output } from '@angular/core';
+import {
+  Component,
+  EventEmitter,
+  inject,
+  Input,
+  OnChanges,
+  OnInit,
+  Output,
+  SimpleChanges,
+} from '@angular/core';
 import { DialogModule } from 'primeng/dialog';
 import { ButtonModule } from 'primeng/button';
 import { Cow, CowFacade } from '@cow/data-access';
 import { FormGroup, ReactiveFormsModule } from '@angular/forms';
-import { FormlyForm, FormlyModule } from '@ngx-formly/core';
+import { FormlyFormOptions, FormlyModule } from '@ngx-formly/core';
 import { CowCreateFields } from './cow-create-fields';
 
 @Component({
@@ -12,31 +21,35 @@ import { CowCreateFields } from './cow-create-fields';
   templateUrl: './cow-create-modal.html',
   styleUrl: './cow-create-modal.css',
 })
-export class CowCreateModal {
+export class CowCreateModal implements OnChanges, OnInit {
   @Input()
   display: boolean = false;
 
   @Output()
   displayChange = new EventEmitter<boolean>();
 
-  model: Cow = {
-    id: 0,
-    sex: '',
-    pen: '',
-    status: 'Active',
-    lastUpdated: new Date(),
-    events: [],
-  };
-
+  model: Partial<Cow> = {};
   form = new FormGroup({});
+  options: FormlyFormOptions = {};
   fields = CowCreateFields;
 
   facade = inject(CowFacade);
 
+  ngOnChanges(): void {
+    if (this.display) {
+      this.resetModal();
+    }
+  }
+
+  ngOnInit(): void {
+    this.resetModal();
+  }
+
   onSaveCow() {
+    const newCow = { ...this.model, lastUpdated: new Date() } as Cow;
     if (this.form.valid) {
       try {
-        this.facade.addCow(this.model);
+        this.facade.addCow(newCow);
         this.displayChange.emit(false);
       } catch (error) {
         console.error('Error adding cow:', error);
@@ -46,5 +59,11 @@ export class CowCreateModal {
 
   onCancel() {
     this.displayChange.emit(false);
+  }
+
+  resetModal() {
+    this.model = { status: 'Active' };
+    this.form.reset();
+    this.options.resetModel?.(this.model);
   }
 }

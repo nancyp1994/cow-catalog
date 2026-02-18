@@ -8,7 +8,7 @@ import { appRoutes } from './app.routes';
 import { provideAnimations } from '@angular/platform-browser/animations';
 import { providePrimeNG } from 'primeng/config';
 import Aura from '@primeuix/themes/aura';
-import { FormlyModule, provideFormlyCore } from '@ngx-formly/core';
+import { provideFormlyCore } from '@ngx-formly/core';
 import { withFormlyBootstrap } from '@ngx-formly/bootstrap';
 
 export const appConfig: ApplicationConfig = {
@@ -22,13 +22,6 @@ export const appConfig: ApplicationConfig = {
         preset: Aura,
       },
     }),
-    provideFormlyCore([
-      ...withFormlyBootstrap(),
-      {
-        validationMessages: [
-          { name: 'required', message: 'This field is required' },
-        ],
-      },
-    ]),
+    provideFormlyCore(withFormlyBootstrap()),
   ],
 };

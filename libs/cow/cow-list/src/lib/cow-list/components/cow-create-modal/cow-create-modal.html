@@ -3,10 +3,20 @@
   [(visible)]="display"
   [modal]="true"
   [closable]="false"
-  [style]="{ width: '400px' }"
+  [style]="{ width: '600px' }"
 >
   <formly-form [form]="form" [fields]="fields" [model]="model"></formly-form>
 
-  <button pButton label="Cancel" (click)="onCancel()"></button>
-  <button pButton label="Save" (click)="onSaveCow()"></button>
+  <ng-template pTemplate="footer">
+    <div class="d-flex justify-content-end gap-2">
+      <button class="btn btn-secondary" (click)="onCancel()">Cancel</button>
+      <button
+        class="btn btn-primary"
+        (click)="onSaveCow()"
+        [disabled]="form.invalid"
+      >
+        Save
+      </button>
+    </div>
+  </ng-template>
 </p-dialog>

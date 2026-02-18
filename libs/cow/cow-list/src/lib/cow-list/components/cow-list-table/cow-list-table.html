@@ -1,16 +1,47 @@
 <div class="card">
-  <p-table [value]="cows">
+  <p-table
+    [value]="cows"
+    #dt
+    (onRowSelect)="openCowDetails($event)"
+    selectionMode="single"
+  >
+    <ng-template #caption>
+      <div class="flex gap-2 justify-content-end">
+        <input
+          type="text"
+          pInputText
+          #searchInput
+          placeholder="Search by Ear Tag"
+          (input)="onSearch(searchInput.value)"
+        />
+      </div>
+    </ng-template>
+
     <ng-template #header>
       <tr>
         <th>Ear Tag Number</th>
         <th>Sex</th>
-        <th>Pen area</th>
-        <th>Status</th>
+        <th>
+          Pen area
+          <p-columnFilter
+            field="pen"
+            matchMode="equals"
+            display="menu"
+          ></p-columnFilter>
+        </th>
+        <th>
+          Status
+          <p-columnFilter
+            field="status"
+            matchMode="equals"
+            display="menu"
+          ></p-columnFilter>
+        </th>
         <th>Last Recorded Event</th>
       </tr>
     </ng-template>
     <ng-template #body let-cow>
-      <tr>
+      <tr [pSelectableRow]="cow">
         <td>{{ cow.id }}</td>
         <td>{{ cow.sex }}</td>
         <td>{{ cow.pen }}</td>

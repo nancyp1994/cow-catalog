@@ -22,7 +22,7 @@ export class CowService {
   }
 
   // get cow by id
-  getCowById(id: number): Cow | undefined {
+  getCowById(id: number) {
     return this.getAllCows().find((cow) => cow.id === id);
   }
 
@@ -31,10 +31,14 @@ export class CowService {
   addCow(cow: Cow) {
     const cows = this.getAllCows();
     const existingCow = cows.some((c) => {
-      return String(c.id).trim() === String(cow.id).trim();
+      return String(c.id) === String(cow.id);
     });
     if (existingCow) {
       alert(`Cow with id ${cow.id} already exists.`);
+      return;
+    }
+    if (cow.id <= 0) {
+      alert('Cow ID must be a positive integer.');
       return;
     }
 
@@ -50,11 +54,14 @@ export class CowService {
   getFilteredCows(): Cow[] {
     const { search, status, pen } = this.filterState;
     return this.getAllCows().filter((cow) => {
-      (!search ||
-        cow.id.toString().includes(search) ||
-        cow.pen.includes(search)) &&
-        (!status || cow.status === status) &&
-        (!pen || cow.pen === pen);
+      const matechesSearch =
+        !search || cow.id.toString().includes(search.trim());
+
+      const matchesPen = !pen || cow.pen == pen;
+
+      const matchesStatus = !status || cow.status === status;
+
+      return matechesSearch && matchesPen && matchesStatus;
     });
   }
 

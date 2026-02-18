@@ -33,6 +33,11 @@ export const CowCreateFields: FormlyFieldConfig[] = [
       ],
       placeholder: 'Select cow sex',
     },
+    validation: {
+      messages: {
+        required: 'Sex is required',
+      },
+    },
   },
 
   {
@@ -42,6 +47,11 @@ export const CowCreateFields: FormlyFieldConfig[] = [
       label: 'Pen',
       required: true,
       placeholder: 'Enter pen location',
+    },
+    validation: {
+      messages: {
+        required: 'Pen location is required',
+      },
     },
   },
   {
@@ -65,6 +75,12 @@ export const CowCreateFields: FormlyFieldConfig[] = [
         },
       ],
       placeholder: 'Select cow status',
+    },
+    validation: {
+      show: true,
+      messages: {
+        required: 'Status is required',
+      },
     },
   },
   {
