@@ -1,0 +1,28 @@
+<p>CowDetail works!</p>
+@if (cow$ | async; as cow) {
+<p-card header="Cow Details">
+  <div class="p-grid">
+    <div class="p-col-6"><strong>Ear Tag Number:</strong> {{ cow.id }}</div>
+    <div class="p-col-6"><strong>Sex:</strong> {{cow.sex}}</div>
+    <div class="p-col-6"><strong>Pen Area:</strong> {{cow.pen}}</div>
+  </div>
+</p-card>
+
+<p-card header="Basic Information">
+  <div class="p-grid">
+    <div class="p-col-6"><strong>Current Weight:</strong> {{ cow.weight }}</div>
+  </div>
+</p-card>
+
+<p-card header="Recent Activity">
+  <div class="p-grid">
+    <p-timeline [value]="cow.events" [align]="'right'">
+      <ng-template #content let-event>
+        <p>
+          {{ event.type }} - {{event.description}} - {{ event.date | date }}
+        </p>
+      </ng-template>
+    </p-timeline>
+  </div>
+</p-card>
+}
